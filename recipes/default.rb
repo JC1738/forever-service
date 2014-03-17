@@ -2,14 +2,12 @@
 # Run one of the service type definitions.
 #
 
+
 begin
-  include_recipe "forever-service::#{node['forever-service']['service-type']}"
+  include_recipe "forever-service::upstart"
 rescue Chef::Exceptions::RecipeNotFound
   Chef::Log.error "Allowed values for forever-service/service-type are: 'initd', 'upstart'"
 end
-
-# Install Forever.
-execute 'npm -g install forever'
 
 # Make sure that the declared service user exists.
 #
@@ -31,7 +29,7 @@ end
 
 # Run one of the recipes depending on service type.
 begin
-  include_recipe "forever-service::#{node['forever-service']['service-type']}"
+  include_recipe "forever-service::upstart"
 rescue Chef::Exceptions::RecipeNotFound
   Chef::Log.error "Allowed values for forever-service/service-type are: 'initd', 'upstart'"
 end
